@@ -1,0 +1,73 @@
+﻿@using FilmsCatalog.Models
+@model FilmsCatalog.ViewModel.FilmViewModel
+
+@{
+    ViewData["Title"] = "Редактировать фильм";
+}
+
+<h1 class="text-center">Редактировать фильм</h1>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <form enctype="multipart/form-data" asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Year" class="control-label"></label>
+                <input asp-for="Year" class="form-control" />
+                <span asp-validation-for="Year" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Director" class="control-label"></label>
+                <input asp-for="Director" class="form-control" />
+                <span asp-validation-for="Director" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Poster" class="control-label"></label>
+                <div class="custom-file">
+                    <input asp-for="Poster" class="custom-file-input" id="customFile">
+                    <label class="custom-file-label" for="customFile">Выбрать файл</label>
+                </div>
+                <span asp-validation-for="Poster" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Сохранить изменения" class="btn btn-primary col-md-12" />
+            </div>
+
+
+        </form>
+    </div>
+</div>
+
+
+
+
+<div  class="text-centedr">
+    <a asp-action="Index" class="btn btn-light btn-sm col-md-4 offset-md-4">К списку фильмов</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript">
+
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    </script>
+}

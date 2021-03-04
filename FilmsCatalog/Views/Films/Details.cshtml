@@ -1,0 +1,53 @@
+﻿@model FilmsCatalog.Models.Film
+
+@{
+    ViewData["Title"] = "О Фильме";
+}
+
+<h1 class="text-center">О Фильме</h1>
+<hr />
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <img src="~/Posters/@Model.Poster"
+                 class="img-fluid"
+                 asp-append-version="true" />
+        </div>
+        <div class="col-sm-6">
+            <table class="table table-borderless">
+                <tr>
+                    <th>Название</th>
+                    <th>@Model.Title</th>
+                </tr>
+
+                <tr>
+                    <th>Описание</th>
+                    <th>@Model.Description</th>
+                </tr>
+
+                <tr>
+                    <th>Год выпуска</th>
+                    <th>@Model.Year</th>
+                </tr>
+
+                <tr>
+                    <th>Режиссер</th>
+                    <th>@Model.Director</th>
+                </tr>
+
+                <tr>
+                    <th>Добавлено пользователем</th>
+                    <th>@ViewData["uname"]</th>
+                </tr>
+
+            </table>
+
+        </div>
+    </div>
+</div>
+
+<hr />
+<div>
+    <a asp-action="Index" class="btn btn-sm btn-light">К списку фильмов</a>
+</div>

@@ -1,0 +1,92 @@
+﻿@using FilmsCatalog.Models
+@model IndexViewModel
+
+@{
+    ViewData["Title"] = "Каталог фильмов";
+}
+
+<h1>Каталог фильмов</h1>
+
+<p>
+    <a asp-action="New">Добавить новый</a>
+</p>
+
+
+<style>
+    @@font-face {
+        font-family: 'FontAwesome';
+        src: url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/fonts/fontawesome-webfont.woff2') format('woff2'), url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/fonts/fontawesome-webfont.woff') format('woff'), url('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/fonts/fontawesome-webfont.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal
+    }
+
+    .glyphicon {
+        display: inline-block;
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale
+    }
+
+    .glyphicon-chevron-right:before {
+        content: "\f054";
+    }
+
+    .glyphicon-chevron-left:before {
+        content: "\f053";
+    }
+</style>
+
+<h2></h2>
+
+@foreach (Film u in Model.Films)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <img src="~/Posters/@u.Poster"
+                     class="img-fluid"
+                    
+                     asp-append-version="true" />
+            </div>
+            <div class="col-sm">
+                <h2>@u.Title</h2>
+                @*<p>@u.Description</p>
+                <p>@u.Director</p>*@
+                <p>@u.Year</p>
+                <p>
+                    @if (u.AddedByUserId == @ViewData["uid"].ToString())
+                    {
+                        <a asp-action="Edit" asp-route-id="@u.Id" class="btn btn-sm btn-primary">Редактировать</a>                                             
+                    }
+
+                    <a asp-action="Details" asp-route-id="@u.Id" class="btn btn-sm btn-success">Подробнее</a>
+                    
+                </p>
+            </div>
+        </div>
+    </div>
+    <hr />
+
+}
+    
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-action="Index"
+        asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+        class="btn btn-outline-dark">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Назад
+    </a>
+}
+
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-action="Index"
+        asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+        class="btn btn-outline-dark">
+        Вперед
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
+}
